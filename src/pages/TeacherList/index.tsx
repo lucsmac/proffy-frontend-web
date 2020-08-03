@@ -2,6 +2,7 @@ import React from 'react'
 
 import './styles.css'
 import PageHeader from '../../components/PageHeader'
+import TeacherItem from '../../components/TeacherItem'
 
 const TeacherList = () => {
   return (
@@ -30,6 +31,15 @@ const TeacherList = () => {
           </div>
         </form>
       </PageHeader>
+
+      <main>
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+      </main>
     </div>
   )
 }

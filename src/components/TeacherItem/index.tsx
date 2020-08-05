@@ -2,33 +2,51 @@ import React from 'react'
 
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 import './styles.css'
+import api from '../../services/api'
 
-const TeacherItem = () => {
+export interface Teacher {
+  id: number,
+  name: string,
+  avatar: string,
+  subject: string,
+  cost: number,
+  whatsapp: string,
+  bio: string
+}
+
+interface TeacherItemProps {
+  teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+
+  const createNewConnection = () => {
+    api.post('connections', {
+      user_id: teacher.id
+    })
+  }
+
   return (
     <article className="teacher-item">
       <header>
-        <img src="https://avatars0.githubusercontent.com/u/55163413?s=460&u=4efcc2eba0c8f0ae229b2ea9c0ace6d18cb0a55f&v=4" alt="Lucas Macedo" />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Lucas Macedo</strong>
-          <span>Engenharia de software</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-        Entusiasta no desenvolvimento de softwares de alto rendimento.
-        <br /><br />
-        Apaixonado por transformar vidas através da tecnologia, em busca de novas conquistas.
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 750,00</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a onClick={createNewConnection} href={`https://wa.me/${teacher.whatsapp}`} target="_blank" rel="noopener noreferrer">
           <img src={whatsappIcon} alt="Entrar em contato" />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   )
